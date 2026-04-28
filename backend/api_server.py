@@ -41,7 +41,7 @@ def get_universe(cap_size="mid"):
         print(f"❌ Error scraping {cap_size} list: {e}")
         return pd.DataFrame()
 
-# --- FAST TEST (BASED ON SUB_INDUSTRY) ---
+# --- FAST TEST (Based on sub-industry) ---
 @app.websocket("/api/ws/scan")
 async def live_scanner(websocket: WebSocket, sectors: str = "Technology", cap: str = "mid"):
     await websocket.accept()
@@ -166,7 +166,7 @@ class SniperRequest(BaseModel):
 
 @app.post("/api/sniper")
 async def run_deep_sniper(request: SniperRequest):
-    """Phase 2: Walk-Forward Optimization with Dynamic Window Sizing."""
+    """Walk-Forward Optimization with Dynamic Window Sizing."""
     targets = request.pairs
     if not targets:
         return {"top_pairs": []}
@@ -261,7 +261,7 @@ async def run_deep_sniper(request: SniperRequest):
         except Exception as e: 
             continue
 
-    # Sort the battle-tested pairs by Opportunity Velocity Score
+    # Sort pairs by Opportunity Velocity Score
     results.sort(key=lambda x: x["score"], reverse=True)
     
     return {"top_pairs": results[:10]}
