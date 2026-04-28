@@ -155,7 +155,7 @@ async def live_scanner(websocket: WebSocket, sectors: str = "Technology", cap: s
     await websocket.send_json({"type": "done", "msg": "Scan Complete."})
     await websocket.close()
 
-    # --- PHASE 2: AUTOMATIC DEEP SNIPER ---
+    # --- DEEPER TEST ---
 
 class PairConfig(BaseModel):
     assetA: str
