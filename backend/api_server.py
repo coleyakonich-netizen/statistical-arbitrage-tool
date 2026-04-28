@@ -405,6 +405,11 @@ def run_portfolio_backtest(request: BacktestRequest):
     df_clean['Cum_Strat'] = (1 + df_clean['Strat_Ret']).cumprod() - 1
     df_clean['Cum_SPY'] = (1 + df_clean['Ret_SPY']).cumprod() - 1
     
+    equity_curve = (1 + df_clean['Strat_Ret']).cumprod()
+    rolling_max = equity_curve.cummax()
+    drawdowns = (equity_curve - rolling_max) / rolling_max
+    max_drawdown = drawdowns.min() if not drawdowns.empty else 0
+    
     for pair_name in individual_pair_returns.keys():
         df_clean[f'Cum_{pair_name}'] = (1 + df_clean[f'Ret_{pair_name}']).cumprod() - 1
     
@@ -438,7 +443,7 @@ def run_portfolio_backtest(request: BacktestRequest):
             "portfolioReturn": final_strat_return,
             "alpha": round(final_strat_return - final_spy_return, 2),
             "winRate": win_rate, 
-            "drawdown": -1.2 
+            "drawdown": round(max_drawdown * 100, 2)
         }
     }
 
