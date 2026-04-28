@@ -41,7 +41,7 @@ def get_universe(cap_size="mid"):
         print(f"❌ Error scraping {cap_size} list: {e}")
         return pd.DataFrame()
 
-# --- QUICK TEST (SUB-INDUSTRY LOCKED) ---
+# --- FAST TEST (BASED ON SUB_INDUSTRY) ---
 @app.websocket("/api/ws/scan")
 async def live_scanner(websocket: WebSocket, sectors: str = "Technology", cap: str = "mid"):
     await websocket.accept()
