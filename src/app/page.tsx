@@ -43,7 +43,6 @@ export default function QuantMatrix() {
   const [btTP, setBtTP] = useState<string>("5.0");
   const [btSL, setBtSL] = useState<string>("1.5");
 
-  // AUTOMATED 2-PHASE SCANNER
   const startLiveScan = () => {
     setIsScanning(true);
     setScannedPairs([]);
