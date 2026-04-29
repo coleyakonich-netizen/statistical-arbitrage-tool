@@ -6,27 +6,27 @@ A full-stack, quantitative research terminal designed to identify, test, and vis
 
 The engine operates on a two-phase automated pipeline:
 
-### Phase 1: High-Speed Radar (Sub-Industry Locked)
-The engine scrapes live constituent data and isolates equities strictly by their Sub-Industry (e.g., pairing Regional Banks only with Regional Banks) to ensure a true macroeconomic tether. It downloads 1 year of historical data and runs:
+### Phase 1: High-Speed Radar
+The engine scrapes live data and isolates equities by their Sub-Industry (e.g., pairing Regional Banks only with Regional Banks) to ensure a true macroeconomic tether. It downloads 1 year of historical data and runs:
 * **Engle-Granger Cointegration Tests** to prove a mathematical relationship.
 * **Ornstein-Uhlenbeck Process Modeling** to calculate the half-life of the mean-reverting spread.
-* **Opportunity Velocity Scoring:** A custom ranking algorithm that weighs the cointegration p-value, applies a premium for high R^2 correlation, and heavily penalizes slow half-lives.
+* **Opportunity Velocity Scoring:** A custom ranking algorithm that weighs the cointegration p-value, the R^2 correlation, and the half-life.
 
-### Phase 2: Dynamic Walk-Forward Optimization (The Sniper)
-The top candidates from Phase 1 are automatically piped into an out-of-sample testing environment. 
-* **Dynamic Window Sizing:** The engine calculates the specific half-life of each pair and dynamically builds custom Train/Test rolling windows (e.g., an 8-cycle train, 2-cycle test) rather than forcing rigid, arbitrary timeframes.
-* Pairs that fail to remain cointegrated across multiple out-of-sample market regimes are discarded.
+### Phase 2: Dynamic Walk-Forward Optimization
+The top candidates from Phase 1 are moved to an out-of-sample testing environment. 
+* **Dynamic Window Sizing:** The engine calculates the specific half-life of each pair and dynamically builds custom Train/Test rolling windows (e.g., an 8-cycle train, 2-cycle test).
+* Pairs that fail to remain cointegrated across multiple out-of-sample market regimes are removed.
 
 ## ⚙️ Tech Stack
 
 **Frontend:**
 * React / Next.js (App Router)
 * Tailwind CSS
-* Recharts (For complex, multi-axis equity curve visualization)
+* Recharts
 * WebSockets (For real-time scanning feedback)
 
 **Backend:**
-* Python / FastAPI (High-performance API and WebSocket server)
+* Python / FastAPI 
 * Pandas & NumPy (Data manipulation)
 * Statsmodels (Cointegration and OLS Regression math)
 * yfinance (Historical market data routing)
